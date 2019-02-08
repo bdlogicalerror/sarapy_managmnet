@@ -45,6 +45,7 @@
                                         <v-btn color="error">Booked</v-btn>
                                     </td>
                                     <td>
+                                        <v-btn @click="deposit_open(props.item.id)" color="primary" dark>Deposit</v-btn>
                                         <v-btn color="info" :to="{name:'edit_client',params:{id:props.item.id}}">
                                             <v-icon>edit</v-icon>
                                             Edit
@@ -61,6 +62,67 @@
                 </v-container>
             </v-card>
         </v-flex>
+
+        <v-dialog v-model="deposit_dialog" persistent max-width="600px">
+
+            <v-card>
+                <v-card-title>Deposit Money</v-card-title>
+                <v-divider></v-divider>
+                <v-card-text>
+                    <v-autocomplete
+                                    v-model="deposit.currency"
+                                    :items="currencys"
+                                    :filter="customFilter"
+                                    color="white"
+                                    :messages="['Currency']"
+                                    item-text="name"
+                                    item-value="id"
+                                    label="Currency Name"
+                                    solo-inverted
+                                    class="mx-3"
+                                    required
+                    ></v-autocomplete>
+                        <v-text-field
+                            v-model="deposit.amount"
+                            :counter="15"
+                            :messages="['Amount']"
+                            label="Amount"
+                            required
+                            solo-inverted
+                            class="mx-3"
+                        ></v-text-field>
+
+                </v-card-text>
+                <v-divider></v-divider>
+                <v-card-actions>
+                    <v-btn color="error" @click="deposit_dialog = false">Close</v-btn>
+                    <v-btn color="success"  @click="deposit_dialog = false">Save</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+
+        <!--Inner progress bar-->
+        <v-dialog
+            v-model="progress_bar"
+            hide-overlay
+            persistent
+            width="300"
+        >
+            <v-card
+                color="primary"
+                dark
+            >
+                <v-card-text>
+                    Please stand by
+                    <v-progress-linear
+                        indeterminate
+                        color="white"
+                        class="mb-0"
+                    ></v-progress-linear>
+                </v-card-text>
+            </v-card>
+        </v-dialog>
+        <!--End Inner progress bar-->
     </v-layout>
 </template>
 
@@ -69,6 +131,14 @@
         name: "all_Clientss",
         data () {
             return {
+                progress_bar: false,
+                deposit_dialog: false,
+
+                deposit:{
+                    currency:"",
+                  amount:0,
+                },
+                currencys:[],
                 search: '',
                 headers: [
                     {
@@ -103,8 +173,16 @@
         },
         created(){
             this.get_Clients();
+            this.all_currency();
         },
         methods:{
+            all_currency(){
+              fetch('/system/currency')
+                  .then(res=>res.json())
+                  .then(res=>{
+                     this.currencys=res;
+                  });
+            },
             get_Clients(){
                 fetch('/system/client')
                     .then(res=>res.json())
@@ -114,7 +192,23 @@
                     .catch(err=>{
                         console.log(err)
                     })
-            }
+            },
+            deposit_open(client_id){
+                this.deposit_dialog=true;
+                console.log(client_id);
+            },
+            customFilter (item, queryText, itemText) {
+                //console.log(queryText)
+
+
+
+                const textOne = item.name.toLowerCase()
+                const textTwo = item.abbr.toLowerCase()
+                const searchText = queryText.toLowerCase()
+
+                return textOne.indexOf(searchText) > -1 ||
+                    textTwo.indexOf(searchText) > -1
+            },
         }
     }
 </script>

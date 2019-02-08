@@ -74549,6 +74549,10 @@ var add_branches = __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('add_br
 var all_user = __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('all_user', __webpack_require__(101));
 var add_user = __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('add_user', __webpack_require__(106));
 
+//Currency
+var all_currency = __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('all_currency', __webpack_require__(120));
+var add_currency = __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('add_currency', __webpack_require__(125));
+
 var login = __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('login', __webpack_require__(111));
 
 var routes = [{
@@ -74663,6 +74667,36 @@ var routes = [{
         path: 'edit_user/:id',
         components: {
             admin: add_user
+        },
+        meta: {
+            is_admin: true,
+            requiresAuth: true
+        }
+    }, {
+        name: "manage_currency",
+        path: 'manage_currency',
+        components: {
+            admin: all_currency
+        },
+        meta: {
+            is_admin: true,
+            requiresAuth: true
+        }
+    }, {
+        name: "add_currency",
+        path: 'currency_add',
+        components: {
+            admin: add_currency
+        },
+        meta: {
+            is_admin: true,
+            requiresAuth: true
+        }
+    }, {
+        name: "edit_currency",
+        path: 'edit_currency/:id',
+        components: {
+            admin: add_currency
         },
         meta: {
             is_admin: true,
@@ -77861,6 +77895,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -77992,6 +78041,33 @@ var render = function() {
                     "v-list-tile",
                     { attrs: { to: { name: "manage_user" } } },
                     [_c("v-list-tile-title", [_vm._v("All Users")])],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-list-group",
+                {
+                  attrs: {
+                    "prepend-icon": "airline_seat_flat",
+                    "no-action": "",
+                    value: "true"
+                  }
+                },
+                [
+                  _c(
+                    "v-list-tile",
+                    { attrs: { slot: "activator" }, slot: "activator" },
+                    [_c("v-list-tile-title", [_vm._v("Currency")])],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-list-tile",
+                    { attrs: { to: { name: "manage_currency" } } },
+                    [_c("v-list-tile-title", [_vm._v("All Currency")])],
                     1
                   )
                 ],
@@ -78197,7 +78273,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -78307,11 +78383,81 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "all_Clientss",
     data: function data() {
         return {
+            progress_bar: false,
+            deposit_dialog: false,
+
+            deposit: {
+                currency: "",
+                amount: 0
+            },
+            currencys: [],
             search: '',
             headers: [{
                 text: 'ID',
@@ -78339,19 +78485,43 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     created: function created() {
         this.get_Clients();
+        this.all_currency();
     },
 
     methods: {
-        get_Clients: function get_Clients() {
+        all_currency: function all_currency() {
             var _this = this;
+
+            fetch('/system/currency').then(function (res) {
+                return res.json();
+            }).then(function (res) {
+                _this.currencys = res;
+            });
+        },
+        get_Clients: function get_Clients() {
+            var _this2 = this;
 
             fetch('/system/client').then(function (res) {
                 return res.json();
             }).then(function (res) {
-                _this.desserts = res;
+                _this2.desserts = res;
             }).catch(function (err) {
                 console.log(err);
             });
+        },
+        deposit_open: function deposit_open(client_id) {
+            this.deposit_dialog = true;
+            console.log(client_id);
+        },
+        customFilter: function customFilter(item, queryText, itemText) {
+            //console.log(queryText)
+
+
+            var textOne = item.name.toLowerCase();
+            var textTwo = item.abbr.toLowerCase();
+            var searchText = queryText.toLowerCase();
+
+            return textOne.indexOf(searchText) > -1 || textTwo.indexOf(searchText) > -1;
         }
     }
 });
@@ -78509,6 +78679,24 @@ var render = function() {
                                             "v-btn",
                                             {
                                               attrs: {
+                                                color: "primary",
+                                                dark: ""
+                                              },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.deposit_open(
+                                                    props.item.id
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [_vm._v("Deposit")]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-btn",
+                                            {
+                                              attrs: {
                                                 color: "info",
                                                 to: {
                                                   name: "edit_client",
@@ -78562,6 +78750,147 @@ var render = function() {
                     ],
                     1
                   )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-dialog",
+        {
+          attrs: { persistent: "", "max-width": "600px" },
+          model: {
+            value: _vm.deposit_dialog,
+            callback: function($$v) {
+              _vm.deposit_dialog = $$v
+            },
+            expression: "deposit_dialog"
+          }
+        },
+        [
+          _c(
+            "v-card",
+            [
+              _c("v-card-title", [_vm._v("Deposit Money")]),
+              _vm._v(" "),
+              _c("v-divider"),
+              _vm._v(" "),
+              _c(
+                "v-card-text",
+                [
+                  _c("v-autocomplete", {
+                    staticClass: "mx-3",
+                    attrs: {
+                      items: _vm.currencys,
+                      filter: _vm.customFilter,
+                      color: "white",
+                      messages: ["Currency"],
+                      "item-text": "name",
+                      "item-value": "id",
+                      label: "Currency Name",
+                      "solo-inverted": "",
+                      required: ""
+                    },
+                    model: {
+                      value: _vm.deposit.currency,
+                      callback: function($$v) {
+                        _vm.$set(_vm.deposit, "currency", $$v)
+                      },
+                      expression: "deposit.currency"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("v-text-field", {
+                    staticClass: "mx-3",
+                    attrs: {
+                      counter: 15,
+                      messages: ["Amount"],
+                      label: "Amount",
+                      required: "",
+                      "solo-inverted": ""
+                    },
+                    model: {
+                      value: _vm.deposit.amount,
+                      callback: function($$v) {
+                        _vm.$set(_vm.deposit, "amount", $$v)
+                      },
+                      expression: "deposit.amount"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("v-divider"),
+              _vm._v(" "),
+              _c(
+                "v-card-actions",
+                [
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { color: "error" },
+                      on: {
+                        click: function($event) {
+                          _vm.deposit_dialog = false
+                        }
+                      }
+                    },
+                    [_vm._v("Close")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { color: "success" },
+                      on: {
+                        click: function($event) {
+                          _vm.deposit_dialog = false
+                        }
+                      }
+                    },
+                    [_vm._v("Save")]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-dialog",
+        {
+          attrs: { "hide-overlay": "", persistent: "", width: "300" },
+          model: {
+            value: _vm.progress_bar,
+            callback: function($$v) {
+              _vm.progress_bar = $$v
+            },
+            expression: "progress_bar"
+          }
+        },
+        [
+          _c(
+            "v-card",
+            { attrs: { color: "primary", dark: "" } },
+            [
+              _c(
+                "v-card-text",
+                [
+                  _vm._v("\n                Please stand by\n                "),
+                  _c("v-progress-linear", {
+                    staticClass: "mb-0",
+                    attrs: { indeterminate: "", color: "white" }
+                  })
                 ],
                 1
               )
@@ -78671,7 +79000,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -78682,6 +79011,8 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -78844,7 +79175,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 profile_pic: "",
                 id_card: "",
                 signature: "",
-                client_type: "",
+                type: "",
                 delete: false
             },
             client_type: ['general', 'company'],
@@ -78883,7 +79214,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.Client.phone = res.phone;
                 _this.Client.email = res.email;
                 _this.Client.address = res.address;
-                _this.Client.client_type = res.client_type;
+                _this.Client.type = res.client_type;
 
                 _this.imageUrl = url + res.profile_pic;
                 _this.nid.imageUrl = url + res.id_card;
@@ -79323,6 +79654,7 @@ var render = function() {
                                   items: _vm.client_type,
                                   "solo-inverted": "",
                                   label: "Client Type",
+                                  required: "",
                                   messages: ["Client Type"]
                                 },
                                 model: {
@@ -81814,6 +82146,875 @@ exports.push([module.i, "/*!\n* Vuetify v1.4.6\n* Forged by John Leider\n* Relea
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 119 */,
+/* 120 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(121)
+}
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(123)
+/* template */
+var __vue_template__ = __webpack_require__(124)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-39888c78"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/currency/manage_currency.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-39888c78", Component.options)
+  } else {
+    hotAPI.reload("data-v-39888c78", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 121 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(122);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("60ac8398", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-39888c78\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./manage_currency.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-39888c78\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./manage_currency.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 122 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 123 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: "all_Currencys",
+    data: function data() {
+        return {
+            search: '',
+            headers: [{
+                text: 'ID',
+                align: 'left',
+                sortable: true,
+                value: 'id'
+            }, {
+                text: 'Name',
+                value: 'name'
+            }, {
+                text: 'Exchange Rate',
+                value: 'ex_rate'
+            }, {
+                text: 'Status',
+                value: 'status'
+            }, {
+                text: 'action',
+                value: 'id'
+            }],
+            desserts: []
+        };
+    },
+    created: function created() {
+        this.get_Currency();
+    },
+
+    methods: {
+        get_Currency: function get_Currency() {
+            var _this = this;
+
+            fetch('/system/currency').then(function (res) {
+                return res.json();
+            }).then(function (res) {
+                _this.desserts = res;
+            }).catch(function (err) {
+                console.log(err);
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 124 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-layout",
+    { attrs: { row: "", wrap: "" } },
+    [
+      _c(
+        "v-toolbar",
+        { attrs: { color: "cyan lighten-2", dark: "" } },
+        [
+          _c("v-icon", { attrs: { dark: "", right: "" } }, [
+            _vm._v("chrome_reader_mode")
+          ]),
+          _vm._v(" "),
+          _c("v-toolbar-title", [_vm._v("All  Currency")]),
+          _vm._v(" "),
+          _c("v-spacer"),
+          _vm._v(" "),
+          _c(
+            "v-btn",
+            { attrs: { color: "red", to: { name: "add_currency" } } },
+            [_c("v-icon", [_vm._v("add")])],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-flex",
+        { attrs: { xs12: "" } },
+        [
+          _c(
+            "v-card",
+            {
+              staticClass: "white--text",
+              attrs: { color: "blue-grey darken-2" }
+            },
+            [
+              _c(
+                "v-card-title",
+                [
+                  _c("v-spacer"),
+                  _vm._v(" "),
+                  _c("v-text-field", {
+                    attrs: {
+                      "append-icon": "search",
+                      label: "Search",
+                      "single-line": "",
+                      "hide-details": ""
+                    },
+                    model: {
+                      value: _vm.search,
+                      callback: function($$v) {
+                        _vm.search = $$v
+                      },
+                      expression: "search"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-container",
+                { attrs: { "fill-height": "", fluid: "", "pa-2": "" } },
+                [
+                  _c(
+                    "v-layout",
+                    { attrs: { "fill-height": "" } },
+                    [
+                      _c(
+                        "v-flex",
+                        { attrs: { xs12: "", "align-end": "", flexbox: "" } },
+                        [
+                          _c(
+                            "v-data-table",
+                            {
+                              attrs: {
+                                headers: _vm.headers,
+                                items: _vm.desserts,
+                                search: _vm.search
+                              },
+                              scopedSlots: _vm._u([
+                                {
+                                  key: "items",
+                                  fn: function(props) {
+                                    return [
+                                      _c(
+                                        "td",
+                                        { staticClass: "text-xs-left" },
+                                        [_vm._v(_vm._s(props.item.id))]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "td",
+                                        { staticClass: "text-xs-left" },
+                                        [_vm._v(_vm._s(props.item.name))]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "td",
+                                        { staticClass: "text-xs-left" },
+                                        [_vm._v(_vm._s(props.item.ex_rate))]
+                                      ),
+                                      _vm._v(" "),
+                                      props.item.status == "1"
+                                        ? _c(
+                                            "td",
+                                            { staticClass: "text-xs-left" },
+                                            [
+                                              _c(
+                                                "v-btn",
+                                                { attrs: { color: "success" } },
+                                                [_vm._v("Available")]
+                                              )
+                                            ],
+                                            1
+                                          )
+                                        : props.item.status == "2"
+                                        ? _c(
+                                            "td",
+                                            { staticClass: "text-xs-left" },
+                                            [
+                                              _c(
+                                                "v-btn",
+                                                { attrs: { color: "error" } },
+                                                [_vm._v("Booked")]
+                                              )
+                                            ],
+                                            1
+                                          )
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      _c(
+                                        "td",
+                                        [
+                                          _c(
+                                            "v-btn",
+                                            {
+                                              attrs: {
+                                                color: "info",
+                                                to: {
+                                                  name: "edit_currency",
+                                                  params: { id: props.item.id }
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("v-icon", [_vm._v("edit")]),
+                                              _vm._v(
+                                                "\n                                        Edit\n                                    "
+                                              )
+                                            ],
+                                            1
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ]
+                                  }
+                                }
+                              ])
+                            },
+                            [
+                              _vm._v(" "),
+                              _c(
+                                "v-alert",
+                                {
+                                  attrs: {
+                                    slot: "no-results",
+                                    value: true,
+                                    color: "error",
+                                    icon: "warning"
+                                  },
+                                  slot: "no-results"
+                                },
+                                [
+                                  _vm._v(
+                                    '\n                                Your search for "' +
+                                      _vm._s(_vm.search) +
+                                      '" found no results.\n                            '
+                                  )
+                                ]
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-39888c78", module.exports)
+  }
+}
+
+/***/ }),
+/* 125 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(126)
+}
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(128)
+/* template */
+var __vue_template__ = __webpack_require__(129)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-a463191c"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/currency/add_currency.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-a463191c", Component.options)
+  } else {
+    hotAPI.reload("data-v-a463191c", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 126 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(127);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("ee9797a8", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-a463191c\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./add_currency.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-a463191c\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./add_currency.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 127 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 128 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: "add_Currency",
+    data: function data() {
+        return {
+
+            //---------------------------
+            hasSaved: false,
+            model: null,
+            wards: [],
+            //------------
+
+
+            valid: false,
+            required_rules: [function (v) {
+                return !!v || 'required';
+            }],
+            edit: false,
+            Currency: {
+                id: "",
+                name: '',
+                ex_rate: 0,
+                delete: false
+            }
+
+        };
+    },
+    created: function created() {
+        var _this = this;
+
+        if (this.$route.params.id !== undefined) {
+            fetch('/system/currency/' + this.$route.params.id).then(function (res) {
+                return res.json();
+            }).then(function (res) {
+                _this.Currency.id = res.id;
+                _this.Currency.name = res.name;
+                _this.Currency.ex_rate = res.ex_rate;
+            });
+            this.edit = true;
+        } else {}
+    },
+
+    methods: {
+        add_Currency: function add_Currency() {
+            var _this2 = this;
+
+            this.$Progress.start();
+            axios.post('/system/currency/add', {
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'Content-Type': 'multipart/form-data'
+                },
+                body: this.Currency
+            }).then(function (res) {
+                _this2.$Progress.finish();
+                _this2.$router.push({ name: "manage_currency" });
+                _this2.$notify({
+                    group: 'system_alert',
+                    position: "bottom right",
+                    type: res.data.msg_type,
+                    title: res.data.msg_type,
+                    text: res.data.message_title
+                });
+                _this2.Currency.no = 0;
+                _this2.Currency.rent = 0;
+            }).catch(function (err) {
+                _this2.$Progress.fail();
+            });
+        },
+        delete_Currency: function delete_Currency() {
+            this.Currency.delete = true;
+            this.update_Currency();
+        },
+        update_Currency: function update_Currency() {
+            var _this3 = this;
+
+            this.$Progress.start();
+            axios.put('/system/currency/' + this.Currency.id, {
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                body: this.Currency
+            }).then(function (res) {
+                _this3.$Progress.finish();
+                _this3.$notify({
+                    group: 'system_alert',
+                    position: "bottom right",
+                    type: res.data.msg_type,
+                    title: res.data.msg_type == 'error' ? 'Deleted' : res.data.msg_type,
+                    text: res.data.message_title
+                });
+                _this3.Currency.no = 0;
+                _this3.Currency.rent = 0;
+                _this3.$router.push({ name: "manage_currency" });
+            }).catch(function (err) {
+                _this3.$Progress.fail();
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 129 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-layout",
+    { attrs: { row: "", wrap: "" } },
+    [
+      _c(
+        "v-toolbar",
+        { attrs: { color: "cyan lighten-2", dark: "" } },
+        [
+          _c("v-icon", { attrs: { dark: "", right: "" } }, [
+            _vm._v("chrome_reader_mode")
+          ]),
+          _vm._v(" "),
+          _c("v-toolbar-title", [_vm._v("Add Currency")]),
+          _vm._v(" "),
+          _c("v-spacer"),
+          _vm._v(" "),
+          _c(
+            "v-btn",
+            { attrs: { color: "red", to: { name: "manage_currency" } } },
+            [_c("v-icon", [_vm._v("keyboard_backspace")])],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-flex",
+        { attrs: { xs12: "" } },
+        [
+          _c(
+            "v-card",
+            {
+              staticClass: "white--text",
+              attrs: { color: "blue-grey darken-2" }
+            },
+            [
+              _c("v-card-title"),
+              _vm._v(" "),
+              _c(
+                "v-container",
+                { attrs: { "fill-height": "", fluid: "", "pa-2": "" } },
+                [
+                  _c(
+                    "v-layout",
+                    { attrs: { "fill-height": "" } },
+                    [
+                      _c(
+                        "v-flex",
+                        { attrs: { xs12: "", "align-end": "", flexbox: "" } },
+                        [
+                          _c(
+                            "v-form",
+                            {
+                              model: {
+                                value: _vm.valid,
+                                callback: function($$v) {
+                                  _vm.valid = $$v
+                                },
+                                expression: "valid"
+                              }
+                            },
+                            [
+                              _c("v-text-field", {
+                                staticClass: "mx-3",
+                                attrs: {
+                                  rules: _vm.required_rules,
+                                  message: ["Currency Name"],
+                                  counter: 20,
+                                  label: "Name",
+                                  required: "",
+                                  "solo-inverted": ""
+                                },
+                                model: {
+                                  value: _vm.Currency.name,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.Currency, "name", $$v)
+                                  },
+                                  expression: "Currency.name"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("v-text-field", {
+                                staticClass: "mx-3",
+                                attrs: {
+                                  counter: 15,
+                                  label: "Ex Rate",
+                                  message: ["Exchange Rate"],
+                                  "solo-inverted": ""
+                                },
+                                model: {
+                                  value: _vm.Currency.ex_rate,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.Currency, "ex_rate", $$v)
+                                  },
+                                  expression: "Currency.ex_rate"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-card-actions",
+                [
+                  !this.edit && this.valid
+                    ? _c(
+                        "v-btn",
+                        {
+                          staticClass: "mx-3",
+                          attrs: { "solo-inverted": "", color: "primary" },
+                          on: { click: _vm.add_Currency }
+                        },
+                        [_vm._v("Add")]
+                      )
+                    : this.edit && this.valid
+                    ? _c(
+                        "v-btn",
+                        {
+                          staticClass: "mx-3",
+                          attrs: { "solo-inverted": "", color: "success" },
+                          on: { click: _vm.update_Currency }
+                        },
+                        [_vm._v("Update")]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  this.edit
+                    ? _c(
+                        "v-btn",
+                        {
+                          staticClass: "mx-3",
+                          attrs: { "solo-inverted": "", color: "error" },
+                          on: { click: _vm.delete_Currency }
+                        },
+                        [_vm._v("Delete")]
+                      )
+                    : _vm._e()
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-a463191c", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

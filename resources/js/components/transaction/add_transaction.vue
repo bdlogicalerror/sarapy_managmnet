@@ -113,7 +113,6 @@
                                     solo-inverted
                                     class="mx-3"
                                     label="Client Type"
-                                    required
                                     :messages="['Client Type']"
                                 ></v-select>
 
@@ -129,7 +128,6 @@
                 </v-card-actions>
             </v-card>
         </v-flex>
-
     </v-layout>
 </template>
 
@@ -137,7 +135,6 @@
     export default {
         name: "add_Client",
         data: () => ({
-
 
             //---------------------------
             hasSaved: false,
@@ -164,7 +161,7 @@
                 profile_pic:"",
                 id_card:"",
                 signature:"",
-                type:"",
+                client_type:"",
                 delete:false,
             },
             client_type:[
@@ -206,7 +203,7 @@
                             this.Client.phone=res.phone;
                             this.Client.email=res.email;
                             this.Client.address=res.address;
-                            this.Client.type=res.client_type;
+                            this.Client.client_type=res.client_type;
 
 
 

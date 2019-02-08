@@ -44,7 +44,7 @@ class ClientController extends Controller
         $client->address=$request->body['address'];
         $client->cid=$user;
         $client->status=1;
-        $client->client_type=$request->body['client_type'];
+        $client->client_type=$request->body['type'];
         $client->profile_pic=decode_img($request->body['profile_pic']);
         $client->id_card=decode_img($request->body['id_card']);
         $client->signature=decode_img($request->body['signature']);
@@ -87,7 +87,7 @@ class ClientController extends Controller
                     'email'=>$request->body['email'],
                     'address'=>$request->body['address'],
                     'uid'=>$request->session()->get('user'),
-                    'client_type'=>$request->body['client_type']
+                    'client_type'=>$request->body['type']
                 ]);
 
                 if(isset($request->body['profile_pic'])&& $request->body['profile_pic']!==""){

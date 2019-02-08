@@ -41,6 +41,21 @@
                     </v-list-tile>
 
                 </v-list-group>
+                <!--Currency-->
+                <v-list-group
+                    prepend-icon="airline_seat_flat"
+                    no-action
+
+                    value="true"
+                >
+                    <v-list-tile slot="activator">
+                        <v-list-tile-title>Currency</v-list-tile-title>
+                    </v-list-tile>
+                    <v-list-tile :to="{name:'manage_currency'}">
+                        <v-list-tile-title>All Currency</v-list-tile-title>
+                    </v-list-tile>
+
+                </v-list-group>
             </v-list>
         </v-navigation-drawer>
         <v-toolbar app fixed clipped-left>

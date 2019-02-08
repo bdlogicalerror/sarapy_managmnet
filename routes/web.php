@@ -22,14 +22,17 @@ Route::group(['prefix'=>'system','middleware'=>'CheckSession'],function (){
        Route::post('/add','BranchController@store');
    });
    Route::group(['prefix'=>'client'],function (){
-
        Route::get('/','ClientController@index');
-
        Route::get('/acc_number','ClientController@get_acc');
-
        Route::get('/{id}','ClientController@sel_client');
        Route::put('/{id}','ClientController@update_client');
        Route::post('/add','ClientController@store');
+   });
+   Route::group(['prefix'=>'currency'],function (){
+       Route::get('/','CurrencyController@index');
+       Route::get('/{id}','CurrencyController@sel_currency');
+       Route::put('/{id}','CurrencyController@update_currency');
+       Route::post('/add','CurrencyController@store');
    });
 
 

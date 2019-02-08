@@ -22,6 +22,10 @@ const add_branches=Vue.component('add_branches',require('../components/branch/ad
 const all_user=Vue.component('all_user',require('../components/user/manage_user.vue'));
 const add_user=Vue.component('add_user',require('../components/user/add_user.vue'))
 
+//Currency
+const all_currency=Vue.component('all_currency',require('../components/currency/manage_currency.vue'));
+const add_currency=Vue.component('add_currency',require('../components/currency/add_currency.vue'))
+
 const login = Vue.component('login', require('../components/login.vue'));
 
 const routes = [
@@ -151,6 +155,39 @@ const routes = [
                 path: 'edit_user/:id',
                 components: {
                     admin: add_user,
+                },
+                meta: {
+                    is_admin: true,
+                    requiresAuth: true
+                }
+            },
+            {
+                name:"manage_currency",
+                path: 'manage_currency',
+                components: {
+                    admin: all_currency,
+                },
+                meta: {
+                    is_admin: true,
+                    requiresAuth: true
+                }
+            },
+            {
+                name:"add_currency",
+                path: 'currency_add',
+                components: {
+                    admin: add_currency,
+                },
+                meta: {
+                    is_admin: true,
+                    requiresAuth: true
+                }
+            },
+            {
+                name:"edit_currency",
+                path: 'edit_currency/:id',
+                components: {
+                    admin: add_currency,
                 },
                 meta: {
                     is_admin: true,
