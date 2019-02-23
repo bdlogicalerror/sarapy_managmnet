@@ -45,7 +45,7 @@
                                         <v-btn color="error">Booked</v-btn>
                                     </td>
                                     <td>
-                                        <v-btn @click="deposit_open(props.item.id)" color="primary" dark>Deposit</v-btn>
+                                        <v-btn  @click="deposit_open(props.item.id)" color="orange darken-4" dark>Deposit</v-btn>
                                         <v-btn color="info" :to="{name:'edit_client',params:{id:props.item.id}}">
                                             <v-icon>edit</v-icon>
                                             Edit
@@ -69,20 +69,23 @@
                 <v-card-title>Deposit Money</v-card-title>
                 <v-divider></v-divider>
                 <v-card-text>
-                    <v-autocomplete
-                                    v-model="deposit.currency"
-                                    :items="currencys"
-                                    :filter="customFilter"
-                                    color="white"
-                                    :messages="['Currency']"
-                                    item-text="name"
-                                    item-value="id"
-                                    label="Currency Name"
-                                    solo-inverted
-                                    class="mx-3"
-                                    required
-                    ></v-autocomplete>
+                    <v-form v-model="valid">
+                        <v-autocomplete
+                            :rules="required_rules"
+                            v-model="deposit.currency"
+                            :items="currencys"
+                            :filter="customFilter"
+                            color="white"
+                            :messages="['Currency']"
+                            item-text="name"
+                            item-value="id"
+                            label="Currency Name"
+                            solo-inverted
+                            class="mx-3"
+                            required
+                        ></v-autocomplete>
                         <v-text-field
+                            :rules="required_rules"
                             v-model="deposit.amount"
                             :counter="15"
                             :messages="['Amount']"
@@ -91,12 +94,14 @@
                             solo-inverted
                             class="mx-3"
                         ></v-text-field>
+                    </v-form>
+
 
                 </v-card-text>
                 <v-divider></v-divider>
                 <v-card-actions>
                     <v-btn color="error" @click="deposit_dialog = false">Close</v-btn>
-                    <v-btn color="success"  @click="deposit_dialog = false">Save</v-btn>
+                    <v-btn v-if="valid" color="success"  @click="confirm_deposit()">Deposit</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -131,12 +136,19 @@
         name: "all_Clientss",
         data () {
             return {
+                valid: false,
+                required_rules: [
+                    v => !!v || 'required',
+                ],
+                //********
+
                 progress_bar: false,
                 deposit_dialog: false,
 
                 deposit:{
+                    client_id:"",
                     currency:"",
-                  amount:0,
+                    amount:0,
                 },
                 currencys:[],
                 search: '',
@@ -195,8 +207,51 @@
             },
             deposit_open(client_id){
                 this.deposit_dialog=true;
-                console.log(client_id);
+                this.deposit.client_id=client_id;
+                this.deposit.amount=0;
+                this.deposit.currency="";
             },
+
+            confirm_deposit(){
+                if(this.valid){
+                    this.deposit_dialog=false;
+                    this.progress_bar=true;
+                    this.$Progress.start();
+                    axios.post('/system/transaction/deposit',{
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        body:this.deposit
+                    })
+                        .then(res=>{
+                            this.$Progress.finish();
+                            this.progress_bar=false;
+                            this.$notify({
+                                group: 'system_alert',
+                                position:"bottom right",
+                                type: "success",
+                                title: "Success",
+                                text: "successfully deposit money to client"
+                            });
+
+                        })
+                        .catch(err=>{
+                            this.$Progress.fail();
+                            this.progress_bar=false;
+                            this.$notify({
+                                group: 'system_alert',
+                                position:"bottom right",
+                                type: "error",
+                                title: "error",
+                                text: "Failed to deposit money"
+                            });
+                        })
+                }else{
+                    console.log("invalid")
+                }
+
+            },
+
             customFilter (item, queryText, itemText) {
                 //console.log(queryText)
 

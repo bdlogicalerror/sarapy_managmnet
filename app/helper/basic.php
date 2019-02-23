@@ -49,6 +49,21 @@ function decode_img($image){
         }
 
     }
+}
+
+function transaction_id($branch_id,$user,$sl){
+    $digits = 15;
+    $t_id=$branch_id.$user.$sl;
+    $trans_id=str_pad(rand(0, pow(10, $digits-strlen($t_id))), $digits, $t_id, STR_PAD_LEFT);
+
+    $chk_trans=\App\transaction::where('transaction_id',$trans_id)->exists();
+
+    if($chk_trans){
+        transaction_id($branch_id,$user,$sl);
+    }else{
+        return $trans_id;
+    }
+}
 
 function delete_old_file($file_with_path){
     if(is_file($file_with_path)){
@@ -56,6 +71,4 @@ function delete_old_file($file_with_path){
     }else{
         return false;
     }
-}
-
 }

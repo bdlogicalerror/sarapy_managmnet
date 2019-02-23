@@ -34,6 +34,11 @@ Route::group(['prefix'=>'system','middleware'=>'CheckSession'],function (){
        Route::put('/{id}','CurrencyController@update_currency');
        Route::post('/add','CurrencyController@store');
    });
+   Route::group(['prefix'=>'transaction'],function (){
+       Route::get('/','TransactionController@index');
+       Route::post('/deposit','TransactionController@deposit');
+       Route::get('/deposit/{id}',"TransactionController@deposit_receipt");
+   });
 
 
 });
@@ -44,12 +49,6 @@ Route::get('/test',function (){
 
     echo round($datediff / (60 * 60 * 24));*/
 
-
     //return date('Y-m-d');
-
-
-
-
-
 
 });

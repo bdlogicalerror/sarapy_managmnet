@@ -42,6 +42,7 @@ class ClientController extends Controller
         $client->phone=$request->body['phone'];
         $client->email=$request->body['email'];
         $client->address=$request->body['address'];
+        $client->password="password";
         $client->cid=$user;
         $client->status=1;
         $client->client_type=$request->body['type'];

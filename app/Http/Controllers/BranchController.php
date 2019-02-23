@@ -44,9 +44,10 @@ class BranchController extends Controller
         $chk=Branch::where('id',$id)->where('status','!=',3)->exists();
 
         if($chk){
-            if(isset($request->body['delete'])){
+            if($request->body['delete']==true){
                 Branch::where('id',$id)->where('status','!=',3)->update([
-                    'status'=>3
+                    'status'=>3,
+                    'uid'=>$request->session()->get('user')
                 ]);
                 return [
                     'status'=>1,

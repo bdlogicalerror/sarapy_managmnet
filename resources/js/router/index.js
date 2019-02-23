@@ -14,6 +14,9 @@ const admin_panel = Vue.component('admin_panel', require('../components/admin_pa
 const all_clients=Vue.component('all_clients',require('../components/clients/manage_clients.vue'));
 const add_clients=Vue.component('add_clients',require('../components/clients/add_clients.vue'));
 
+//transactions
+const all_transaction=Vue.component('all_transaction',require('../components/transaction/manage_transaction'));
+
 //branch
 const all_branches=Vue.component('all_branches',require('../components/branch/manage_branch.vue'));
 const add_branches=Vue.component('add_branches',require('../components/branch/add_branch.vue'));
@@ -24,7 +27,7 @@ const add_user=Vue.component('add_user',require('../components/user/add_user.vue
 
 //Currency
 const all_currency=Vue.component('all_currency',require('../components/currency/manage_currency.vue'));
-const add_currency=Vue.component('add_currency',require('../components/currency/add_currency.vue'))
+const add_currency=Vue.component('add_currency',require('../components/currency/add_currency.vue'));
 
 const login = Vue.component('login', require('../components/login.vue'));
 
@@ -75,6 +78,17 @@ const routes = [
                 },
                 components: {
                     content: add_clients,
+                }
+            },
+            {
+                name:"manage_transaction",
+                path: '/manage_transaction',
+                components: {
+                    content: all_transaction,
+                },
+                meta: {
+                    is_user: true,
+                    requiresAuth: true
                 }
             }
 

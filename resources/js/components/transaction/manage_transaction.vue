@@ -2,7 +2,7 @@
     <v-layout row wrap>
         <v-toolbar color="cyan lighten-2" dark>
             <v-icon dark right>chrome_reader_mode</v-icon>
-            <v-toolbar-title>All  Clients</v-toolbar-title>
+            <v-toolbar-title>All  Transactions</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-btn color="red" :to="{name:'add_client'}">
                 <v-icon>add</v-icon>
@@ -66,7 +66,7 @@
 
 <script>
     export default {
-        name: "all_Clientss",
+        name: "all_Transactionss",
         data () {
             return {
                 search: '',
@@ -82,11 +82,11 @@
                         value: 'acc_number'
                     },
                     {
-                        text: 'Clients Name',
+                        text: 'Transactions Name',
                         value: 'name'
                     },
                     {
-                        text: 'Clients Type',
+                        text: 'Transactions Type',
                         value: 'client_type'
                     },
                     {
@@ -102,10 +102,10 @@
             }
         },
         created(){
-            this.get_Clients();
+            this.get_Transactions();
         },
         methods:{
-            get_Clients(){
+            get_Transactions(){
                 fetch('/system/client')
                     .then(res=>res.json())
                     .then(res=>{

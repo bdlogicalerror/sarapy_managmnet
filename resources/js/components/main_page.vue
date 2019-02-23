@@ -15,14 +15,25 @@
                 <v-list-group
                     prepend-icon="airline_seat_flat"
                     no-action
-
-                    value="true"
-                >
+                    value="true">
                     <v-list-tile slot="activator">
                         <v-list-tile-title>Clients</v-list-tile-title>
                     </v-list-tile>
                     <v-list-tile :to="{name:'manage_client'}">
                         <v-list-tile-title>All Clients</v-list-tile-title>
+                    </v-list-tile>
+
+                </v-list-group>
+                <!--Transaction-->
+                <v-list-group
+                    prepend-icon="airline_seat_flat"
+                    no-action
+                    value="true">
+                    <v-list-tile slot="activator">
+                        <v-list-tile-title>Transaction</v-list-tile-title>
+                    </v-list-tile>
+                    <v-list-tile :to="{name:'manage_transaction'}">
+                        <v-list-tile-title>All Transactions</v-list-tile-title>
                     </v-list-tile>
 
                 </v-list-group>
